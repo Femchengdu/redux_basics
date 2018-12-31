@@ -28,9 +28,13 @@ const appRecuder = (state = initialize_reducer, action) => {
 const store = create_a_store(appRecuder);
 console.log(store.getState());
 
+// Subscription
+store.subscribe(() => {
+	console.log('[From Subscription]', store.getState());
+});
+
 // Dispatching Action
 store.dispatch({type: 'INCREMENT_COUNTER'});
 store.dispatch({type: 'ADD_VAL_TO_COUNTER', value: 10});
 console.log(store.getState());
 
-// Subscription
