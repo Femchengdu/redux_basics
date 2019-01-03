@@ -1,4 +1,4 @@
-//....
+//.....
 const initialize_reducer = {
 	counter: 0,
 	results: []
@@ -35,6 +35,15 @@ const reducer = (state = initialize_reducer, action) => {
 			return {
 				...state,
 				results: state.results.concat({id: new Date(), value: state.counter})
+			}
+		case 'DELETE_RESULT':
+			// const id = some_id;
+			// const newArr = [...state.results];
+			// newArr.splice(some_id, 1)
+			const updateArray = state.results.filter(result => result.id !== action.arr_id)
+			return {
+				...state,
+				results: updateArray
 			}
 		default:
 			return state;
