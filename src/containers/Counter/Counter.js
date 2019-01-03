@@ -1,8 +1,9 @@
-//..........
+//............
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
+import * as action_types from '../../store/actions';
 
 class Counter extends Component {
 
@@ -51,12 +52,12 @@ const stateToProps = state => {
 // React redux also provides the dispatch helper variable
 const dispatchToProps = dispatch => {
     return {
-        increment_the_counter: () => dispatch({type: 'INCREMENT'}),
-        decrement_the_counter: () => dispatch({type: 'DECREMENT'}),
-        counter_minus_5: () => dispatch({type: 'SUBTRACT', value: 5}),
-        counter_plus_5: () => dispatch({type: 'ADD', value: 5}),
-        store_result: () => dispatch({type: 'STORE_RESULT'}),
-        delete_result: (id) => dispatch({type: 'DELETE_RESULT', arr_id: id })
+        increment_the_counter: () => dispatch({type: action_types.add_one}),
+        decrement_the_counter: () => dispatch({type: action_types.sub_one}),
+        counter_minus_5: () => dispatch({type: action_types.sub_five, value: 5}),
+        counter_plus_5: () => dispatch({type: action_types.add_five, value: 5}),
+        store_result: () => dispatch({type: action_types.add_to_array}),
+        delete_result: (id) => dispatch({type: action_types.del_from_array, arr_id: id })
     }
 }
 // connect is a function that returns a function which takes a component as input
