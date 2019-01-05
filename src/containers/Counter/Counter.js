@@ -16,7 +16,7 @@ class Counter extends Component {
                 <CounterControl label="Add 5" clicked={this.props.counter_plus_5}  />
                 <CounterControl label="Subtract 5" clicked={this.props.counter_minus_5}  />
                 <hr />
-                <button onClick={this.props.store_result}>Store Result</button>
+                <button onClick={() => this.props.store_result(this.props.redux_state_counter)}>Store Result</button>
                 {/*
                     Using an anonymous fuction to wrap our function reference allows the passing of an agrs to the wrapped fucntion reference.
                     The anonymous '() => function()' fuction isn't executed when the object is rendered.
@@ -44,8 +44,8 @@ class Counter extends Component {
 // React redux provide the state helper variabl
 const stateToProps = state => {
     return {
-        redux_state_counter: state.counter,
-        stored_result: state.results
+        redux_state_counter: state.cnt_reducer.counter,
+        stored_result: state.res_reducer.results
     }
 }
 
@@ -56,7 +56,7 @@ const dispatchToProps = dispatch => {
         decrement_the_counter: () => dispatch({type: action_types.sub_one}),
         counter_minus_5: () => dispatch({type: action_types.sub_five, value: 5}),
         counter_plus_5: () => dispatch({type: action_types.add_five, value: 5}),
-        store_result: () => dispatch({type: action_types.add_to_array}),
+        store_result: (counter_value) => dispatch({type: action_types.add_to_array, counter_value: counter_value}),
         delete_result: (id) => dispatch({type: action_types.del_from_array, arr_id: id })
     }
 }
