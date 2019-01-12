@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
-import * as action_types from '../../store/actions';
+//import * as action_types from '../../store/actions';
+import * as action_types from '../../store/actions/actions';
 
 class Counter extends Component {
 
@@ -17,15 +18,6 @@ class Counter extends Component {
                 <CounterControl label="Subtract 5" clicked={this.props.counter_minus_5}  />
                 <hr />
                 <button onClick={() => this.props.store_result(this.props.redux_state_counter)}>Store Result</button>
-                {/*
-                    Using an anonymous fuction to wrap our function reference allows the passing of an agrs to the wrapped fucntion reference.
-                    The anonymous '() => function()' fuction isn't executed when the object is rendered.
-                    It is wired to the onClick event listener.
-                    Because of this, we can add a '()' to the wrapped fuction reference in the anonymous fuction.
-                    This enables us to pass arguments  to the wrapped fucntion and the wrapped fucntion
-                    wouldn't be called until the anonymous fuction itself is called.
-                    
-                */}
                 <ul>
                     {
                         this.props.stored_result.map(result => (
@@ -52,12 +44,12 @@ const stateToProps = state => {
 // React redux also provides the dispatch helper variable
 const dispatchToProps = dispatch => {
     return {
-        increment_the_counter: () => dispatch({type: action_types.add_one}),
-        decrement_the_counter: () => dispatch({type: action_types.sub_one}),
-        counter_minus_5: () => dispatch({type: action_types.sub_five, value: 5}),
-        counter_plus_5: () => dispatch({type: action_types.add_five, value: 5}),
-        store_result: (counter_value) => dispatch({type: action_types.add_to_array, counter_value: counter_value}),
-        delete_result: (id) => dispatch({type: action_types.del_from_array, arr_id: id })
+        increment_the_counter: () => dispatch(action_types.add_one_creator()),
+        decrement_the_counter: () => dispatch(action_types.sub_one_creator()),
+        counter_minus_5: () => dispatch(action_types.sub_five_creator(5)),
+        counter_plus_5: () => dispatch(action_types.add_five_creator(5)),
+        store_result: (counter_value) => dispatch(action_types.add_to_array_creator(counter_value)),
+        delete_result: (id) => dispatch(action_types.del_from_array_creator(id))
     }
 }
 // connect is a function that returns a function which takes a component as input

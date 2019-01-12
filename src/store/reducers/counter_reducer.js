@@ -1,4 +1,4 @@
-import * as action_types from '../actions';
+import * as action_types from '../actions/actions';
 //.....
 const initialize_reducer = {
 	counter: 0
