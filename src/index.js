@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import counterReducer from './store/reducers/counter_reducer';
 import resultReducer from './store/reducers/result_reducer';
 import './index.css';
@@ -24,7 +24,9 @@ const middleware_logger = store => {
 	}
 }
 
-const store = createStore(rootReducer, applyMiddleware(middleware_logger));
+// Redux DevTools Extension
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(middleware_logger)));
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 
