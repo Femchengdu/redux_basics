@@ -32,11 +32,21 @@ export const sub_five_creator = (passed_data) => {
 		value: passed_data
 	}
 }
-
-export const add_to_array_creator = (passed_data) => {
+// add_to_array_via_thunk
+export const add_to_array_via_thunk = (passed_data) => {
 	return {
 		type: add_to_array,
 		counter_value: passed_data
+	}
+}
+
+// New add to array creator using thunk
+
+export const add_to_array_creator = (passed_data) => {
+	return dispatch => {
+		setTimeout( () => {
+			dispatch(add_to_array_via_thunk(passed_data));
+		}, 6000);
 	}
 }
 

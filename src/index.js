@@ -7,6 +7,7 @@ import './index.css';
 import {Provider} from 'react-redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
 	cnt_reducer: counterReducer,
@@ -16,9 +17,9 @@ const rootReducer = combineReducers({
 const middleware_logger = store => {
 	return proceed_to_reducer => {
 		return action => {
-			console.log('[middlewareLogger] Sending', action);
+			console.log('[Middleware Logger] Sending:', action);
 			const terminate_recusive_call = proceed_to_reducer(action);
-			console.log('[middlewareLogger] accessing store:', store.getState());
+			console.log('[Middleware Logger] Accessing store:', store.getState());
 			return terminate_recusive_call;
 		}
 	}
@@ -26,7 +27,7 @@ const middleware_logger = store => {
 
 // Redux DevTools Extension
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(middleware_logger)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(middleware_logger, thunk)));
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 
