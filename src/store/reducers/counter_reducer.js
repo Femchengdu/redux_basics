@@ -1,5 +1,7 @@
-import * as action_types from '../actions/action_types';
 //.....
+import * as action_types from '../actions/action_types';
+import {update_object} from '../reducer_utilities';
+
 const initialize_reducer = {
 	counter: 0
 }
@@ -9,25 +11,13 @@ const reducer = (state = initialize_reducer, action) => {
 
 	switch (action.type) {
 		case action_types.add_one:
-		// Change the state immutably
-		const newState = Object.assign({}, state);
-		newState.counter = state.counter + 1;
-		return newState;
+			return update_object(state, {counter: state.counter + 1});
 		case action_types.sub_one:
-			return {
-				...state,
-				counter: state.counter - 1
-			}
+			return update_object(state, {counter: state.counter - 1});
 		case action_types.add_five:
-			return {
-				...state,
-				counter: state.counter + action.value
-			}
+			return update_object(state, {counter: state.counter + action.value});
 		case action_types.sub_five:
-			return {
-				...state,
-				counter: state.counter - action.value
-			}
+			return update_object(state, {counter: state.counter - action.value });
 		default:
 			return state;
 	}

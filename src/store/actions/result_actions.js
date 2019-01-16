@@ -9,12 +9,14 @@ export const add_to_array_via_thunk = (passed_data) => {
 }
 
 // New add to array creator using thunk
-
+// Thunk can also receive getState
 export const add_to_array_creator = (passed_data) => {
-	return dispatch => {
+	return (dispatch, getState) => {
 		setTimeout( () => {
+			let old_const = getState().cnt_reducer.counter;
+			console.log('[Old State:] Before dispatch', old_const);
 			dispatch(add_to_array_via_thunk(passed_data));
-		}, 6000);
+		}, 3000);
 	}
 }
 
